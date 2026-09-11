@@ -215,6 +215,8 @@ static int mt_main_create(struct mtl_main_impl* impl) {
     return ret;
   }
 
+  mtl_thread_setname(impl->tsc_cal_tid, "mtl_tsc");
+
   info("%s, succ\n", __func__);
   return 0;
 }

@@ -418,6 +418,8 @@ static int cni_traffic_thread_start(struct mtl_main_impl* impl, struct mt_cni_im
     return ret;
   }
 
+  mtl_thread_setname(cni->tid, "mtl_cni");
+
   return 0;
 }
 
