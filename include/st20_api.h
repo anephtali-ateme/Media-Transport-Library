@@ -2198,6 +2198,34 @@ int st20_rx_pcapng_dump(st20_rx_handle handle, uint32_t max_dump_packets, bool s
                         struct st_pcap_dump_meta* meta);
 
 /**
+ * Retrieve the general statistics(I/O) for one rx st2110-22(video) session.
+ *
+ * @param handle
+ *   The handle to the rx st2110-22(video) session.
+ * @param port
+ *   The port index.
+ * @param stats
+ *   A pointer to stats structure.
+ * @return
+ *   - >=0 succ.
+ *   - <0: Error code.
+ */
+int st22_rx_get_session_stats(st22_rx_handle handle, struct st20_rx_user_stats* stats);
+
+/**
+ * Reset the general statistics(I/O) for one rx st2110-22(video) session.
+ *
+ * @param handle
+ *   The handle to the rx st2110-22(video) session.
+ * @param port
+ *   The port index.
+ * @return
+ *   - >=0 succ.
+ *   - <0: Error code.
+ */
+int st22_rx_reset_session_stats(st22_rx_handle handle);
+
+/**
  * Free the rx st2110-20(video) session.
  *
  * @param handle

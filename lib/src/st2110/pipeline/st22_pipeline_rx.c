@@ -924,6 +924,42 @@ int st22p_rx_pcapng_dump(st22p_rx_handle handle, uint32_t max_dump_packets, bool
   return ret;
 }
 
+int st22p_rx_get_session_stats(st22p_rx_handle handle, struct st20_rx_user_stats* stats) {
+  struct st22p_rx_ctx* ctx = handle;
+  int cidx;
+
+  if (!handle || !stats) {
+    err("%s, invalid handle %p or stats %p\n", __func__, handle, stats);
+    return -EINVAL;
+  }
+
+  cidx = ctx->idx;
+  if (ctx->type != MT_ST22_HANDLE_PIPELINE_RX) {
+    err("%s(%d), invalid type %d\n", __func__, cidx, ctx->type);
+    return 0;
+  }
+
+  return st22_rx_get_session_stats(ctx->transport, stats);
+}
+
+int st22p_rx_reset_session_stats(st22p_rx_handle handle) {
+  struct st22p_rx_ctx* ctx = handle;
+  int cidx;
+
+  if (!handle) {
+    err("%s, invalid handle %p\n", __func__, handle);
+    return -EINVAL;
+  }
+
+  cidx = ctx->idx;
+  if (ctx->type != MT_ST22_HANDLE_PIPELINE_RX) {
+    err("%s(%d), invalid type %d\n", __func__, cidx, ctx->type);
+    return 0;
+  }
+
+  return st22_rx_reset_session_stats(ctx->transport);
+}
+
 int st22p_rx_update_source(st22p_rx_handle handle, struct st_rx_source_info* src) {
   struct st22p_rx_ctx* ctx = handle;
   int ret;

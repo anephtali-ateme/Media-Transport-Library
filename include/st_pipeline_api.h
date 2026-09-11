@@ -1705,6 +1705,34 @@ int st22p_rx_pcapng_dump(st22p_rx_handle handle, uint32_t max_dump_packets, bool
 int st22p_rx_get_queue_meta(st22p_rx_handle handle, struct st_queue_meta* meta);
 
 /**
+ * Retrieve the general statistics(I/O) for one rx st2110-22(pipeline) session.
+ *
+ * @param handle
+ *   The handle to the rx st2110-22(pipeline) session.
+ * @param port
+ *   The port index.
+ * @param stats
+ *   A pointer to stats structure.
+ * @return
+ *   - >=0 succ.
+ *   - <0: Error code.
+ */
+int st22p_rx_get_session_stats(st22p_rx_handle handle, struct st20_rx_user_stats* stats);
+
+/**
+ * Reset the general statistics(I/O) for one rx st2110-22(pipeline) session.
+ *
+ * @param handle
+ *   The handle to the rx st2110-22(pipeline) session.
+ * @param port
+ *   The port index.
+ * @return
+ *   - >=0 succ.
+ *   - <0: Error code.
+ */
+int st22p_rx_reset_session_stats(st22p_rx_handle handle);
+
+/**
  * Online update the source info for the rx st2110-22(pipeline) session.
  *
  * @param handle

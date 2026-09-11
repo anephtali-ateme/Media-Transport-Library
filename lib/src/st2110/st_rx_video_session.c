@@ -5010,6 +5010,42 @@ int st22_rx_pcapng_dump(st22_rx_handle handle, uint32_t max_dump_packets, bool s
   return ret;
 }
 
+int st22_rx_get_session_stats(st22_rx_handle handle, struct st20_rx_user_stats* stats) {
+  struct st22_rx_video_session_handle_impl* s_impl = handle;
+
+  if (!handle || !stats) {
+    err("%s, invalid handle %p or stats %p\n", __func__, handle, stats);
+    return -EINVAL;
+  }
+
+  if (s_impl->type != MT_ST22_HANDLE_RX_VIDEO) {
+    err("%s, invalid type %d\n", __func__, s_impl->type);
+    return -EINVAL;
+  }
+  struct st_rx_video_session_impl* s = s_impl->impl;
+
+  memcpy(stats, &s->port_user_stats, sizeof(*stats));
+  return 0;
+}
+
+int st22_rx_reset_session_stats(st22_rx_handle handle) {
+  struct st22_rx_video_session_handle_impl* s_impl = handle;
+
+  if (!handle) {
+    err("%s, invalid handle %p\n", __func__, handle);
+    return -EINVAL;
+  }
+
+  if (s_impl->type != MT_ST22_HANDLE_RX_VIDEO) {
+    err("%s, invalid type %d\n", __func__, s_impl->type);
+    return -EINVAL;
+  }
+  struct st_rx_video_session_impl* s = s_impl->impl;
+
+  memset(&s->port_user_stats, 0, sizeof(s->port_user_stats));
+  return 0;
+}
+
 int st22_rx_free(st22_rx_handle handle) {
   struct st22_rx_video_session_handle_impl* s_impl = handle;
   struct mtl_sch_impl* sch;
